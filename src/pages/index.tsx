@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
+import {analytics} from '../utils'
 
 export default function Home() {
   const [consentProvided, setConsentProvided] = useState(false);
   const router = useRouter();
 
+  useEffect(()=>{
+   console.log(analytics?.app.name);
+  },[])
   useEffect(() => {
     // Check if the consent cookie exists
     const userConsent = Cookies.get('adhd-therapy-consent');
