@@ -1,6 +1,29 @@
-import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 export default function Home() {
+  const [consentProvided, setConsentProvided] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    // Check if the consent cookie exists
+    const userConsent = Cookies.get('adhd-therapy-consent');
+    if (userConsent) {
+      setConsentProvided(true);
+    }
+  }, []);
+
+  const handleActionClick = () => {
+    if (consentProvided) {
+      // If consent is already provided, go directly to the GPT URL
+      router.push(process.env.NEXT_PUBLIC_GPT_URL || '/');
+    } else {
+      // Otherwise, go to the consent page
+      router.push('/consent');
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-8 bg-gray-100">
       <h1 className="text-5xl font-bold mb-6 text-gray-800">
@@ -15,9 +38,12 @@ export default function Home() {
         Our GPT offers guidance and support without replacing professional medical advice. Whether you're
         looking for strategies to improve focus, manage daily tasks, or understand ADHD better, our AI is here to help.
       </p>
-      <Link href="/consent" className="px-6 py-3 bg-blue-600 text-white text-lg font-medium rounded-lg hover:bg-blue-700">
-          Get Started with ADHD Therapy GPT
-      </Link>
+      <button
+        onClick={handleActionClick}
+        className="px-6 py-3 bg-blue-600 text-white text-lg font-medium rounded-lg hover:bg-blue-700"
+      >
+        Get Started with ADHD Therapy GPT
+      </button>
     </div>
   );
 }

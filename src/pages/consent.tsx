@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 export default function Consent() {
   const [consent, setConsent] = useState(false);
@@ -7,7 +8,10 @@ export default function Consent() {
 
   const handleConsent = () => {
     if (consent) {
-      router.push(process.env.NEXT_PUBLIC_GPT_LINK as string); // Replace with actual GPT link
+      // Set the cookie for 30 days
+      Cookies.set('adhd-therapy-consent', 'true', { expires: 30 });
+      // Redirect to GPT page
+      router.push(process.env.NEXT_PUBLIC_GPT_URL || '/');
     } else {
       alert('You must agree to the terms before proceeding.');
     }
