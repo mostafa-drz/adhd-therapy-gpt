@@ -39,7 +39,7 @@ export default function Home() {
         provides personalized advice and answers to your questions about ADHD.
       </p>
       <p className="text-lg text-gray-700 max-w-2xl text-center mb-8">
-        Our GPT offers guidance and support without replacing professional medical advice. Whether you're
+        Our GPT offers guidance and support without replacing professional medical advice. Whether you&apos;re
         looking for strategies to improve focus, manage daily tasks, or understand ADHD better, our AI is here to help.
       </p>
       <button
